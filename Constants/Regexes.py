@@ -1,0 +1,1 @@
+LocaleSongTitleRegex = r"\b([A-Za-z]+)\b(?=\s+(?:ver|version)\b[^ver]*$)"

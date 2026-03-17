@@ -1,0 +1,6 @@
+EnglishFull = "english"
+EnglishPart = "eng"
+JapaneseFull = "japanese"
+JapanesePart = "jap"
+VersionFull = "version"
+VersionPart = "ver"
