@@ -221,10 +221,12 @@ __marimo__/
 # Project
 .env
 .cache*
+browser.json
+oath.json
 /Data
 /music
 /YtSearchController/Archives
 /YtSearchController/Music
-/YtMusicApiController/Browser.json
+/YtMusicApiController/browser.json
 /YtMusicApiController/oauth.json
 /YtMusicApiController/client-secret.json
