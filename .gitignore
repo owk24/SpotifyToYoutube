@@ -229,10 +229,10 @@ __marimo__/
 # Project
 .env
 .cache-*.*
-./Data
-./music
-./YtSearchController/Archives
-./YtSearchController/Music
-./YtMusicApiController/Browser.json
-./YtMusicApiController/oauth.json
-./YtMusicApiController/client-secret.json
+/Data
+/music
+/YtSearchController/Archives
+/YtSearchController/Music
+/YtMusicApiController/Browser.json
+/YtMusicApiController/oauth.json
+/YtMusicApiController/client-secret.json
