@@ -11,6 +11,4 @@ async def main():
     youtubeApiController = YouTubeApiController()
     # await youtubeApiController.GetYoutubeLinksForSongs()
 
-    await youtubeApiController.download_from_yt_playlist("PL5pxc3TW-DLJKUUucvQYjQCN3qKidh3rN")
-
 asyncio.run(main())
