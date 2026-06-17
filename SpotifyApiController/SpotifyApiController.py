@@ -8,54 +8,56 @@ import spotipy.util as util
 from . import SpotifyConstants
 
 class SpotifyApiController:
-    clientId = os.getenv("SPOTIFY_CLIENT_ID")
-    clientSecret = os.getenv("SPOTIFY_CLIENT_SECRET")
-    redirectUri = SpotifyConstants.REDIRECT_URI
-    mainSearchUrl = SpotifyConstants.MAIN_SEARCH_URI
-    parameterType = SpotifyConstants.PARAMETER_TYPE
-    limit = SpotifyConstants.LIMIT
+    def __init__(self):
+        self.client_id = os.getenv("SPOTIFY_CLIENT_ID")
+        self.client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
+        self.redirect_uri = SpotifyConstants.REDIRECT_URI
+        self.main_search_url = SpotifyConstants.MAIN_SEARCH_URI
+        self.parameter_type = SpotifyConstants.PARAMETER_TYPE
+        self.limit = SpotifyConstants.LIMIT
 
-    scope = os.getenv("SPOTIFY_SCOPE")
-    username = os.getenv("SPOTIFY_USERNAME")
+        self.scope = os.getenv("SPOTIFY_SCOPE")
+        self.username = os.getenv("SPOTIFY_USERNAME")
 
-    token = util.prompt_for_user_token(
-        username,
-        scope,
-        client_id=clientId,
-        client_secret=clientSecret,
-        redirect_uri=redirectUri
-    )
+        self.token = util.prompt_for_user_token(
+            self.username,
+            self.scope,
+            client_id=self.client_id,
+            client_secret=self.client_secret,
+            redirect_uri=self.redirect_uri
+        )
 
     def get_song_data_from_user_liked_list(self):
         try:
-            sp = spotipy.Spotify(auth=self.token)
+            spotify_client = spotipy.Spotify(auth=self.token)
 
-            tracksToProcess = sp.current_user_saved_tracks()
-            if tracksToProcess == None:
+            tracks_to_process = spotify_client.current_user_saved_tracks()
+            if tracks_to_process is None:
                 raise Exception(f'{self.get_song_data_from_user_liked_list.__name__} No songs could be found in user\'s Liked List')
+
             songs = {}
-            while tracksToProcess:
-                for item in tracksToProcess['items']:
+            while tracks_to_process:
+                for item in tracks_to_process['items']:
                     song = {}
 
-                    trackName = item['track']['name']
+                    track_name = item['track']['name']
                     album = item['track']['album']['name']
-                    artistName = item['track']['artists'][0]['name']
+                    artist_name = item['track']['artists'][0]['name']
                     duration = item['track']['duration_ms']
-                    songId = item['track']['id']
+                    song_id = item['track']['id']
 
-                    key = f'{trackName.strip()}_{artistName.strip()}_{songId}'
+                    key = f'{track_name.strip()}_{artist_name.strip()}_{song_id}'
 
-                    song['title'] = trackName
+                    song['title'] = track_name
                     song['album'] = album
-                    song['artist'] = artistName
+                    song['artist'] = artist_name
                     song['durationMs'] = duration
-                    song['spotifySongId'] = songId
+                    song['spotifySongId'] = song_id
 
                     songs[key] = song
-                
-                if tracksToProcess['next'] is not None:
-                    tracksToProcess = sp.next(tracksToProcess)
+
+                if tracks_to_process['next'] is not None:
+                    tracks_to_process = spotify_client.next(tracks_to_process)
                 else:
                     break
 
