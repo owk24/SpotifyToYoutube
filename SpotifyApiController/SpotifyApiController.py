@@ -9,22 +9,16 @@ from . import SpotifyConstants
 
 class SpotifyApiController:
     def __init__(self):
-        self.client_id = os.getenv("SPOTIFY_CLIENT_ID")
-        self.client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
-        self.redirect_uri = SpotifyConstants.REDIRECT_URI
         self.main_search_url = SpotifyConstants.MAIN_SEARCH_URI
         self.parameter_type = SpotifyConstants.PARAMETER_TYPE
         self.limit = SpotifyConstants.LIMIT
 
-        self.scope = os.getenv("SPOTIFY_SCOPE")
-        self.username = os.getenv("SPOTIFY_USERNAME")
-
         self.token = util.prompt_for_user_token(
-            self.username,
-            self.scope,
-            client_id=self.client_id,
-            client_secret=self.client_secret,
-            redirect_uri=self.redirect_uri
+            os.getenv("SPOTIFY_USERNAME"),
+            os.getenv("SPOTIFY_SCOPE"),
+            client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+            client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
+            redirect_uri=SpotifyConstants.REDIRECT_URI
         )
 
     def get_song_data_from_user_liked_list(self):
